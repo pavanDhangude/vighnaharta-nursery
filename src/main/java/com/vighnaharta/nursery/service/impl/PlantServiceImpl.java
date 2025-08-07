@@ -10,6 +10,8 @@ import com.vighnaharta.nursery.service.ImageUploadService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -38,30 +40,42 @@ public class PlantServiceImpl implements PlantService {
     }
 
     @Override
-    public PlantResponseDTO savePlant(PlantRequestDTO plantDTO) {
-        Plant plant = plantMapper.toEntity(plantDTO); // ✅ FIXED
+	public PlantResponseDTO savePlant(@ModelAttribute PlantRequestDTO plantDTO) {
+	    Plant plant = plantMapper.toEntity(plantDTO);
 
-        MultipartFile imageFile = plantDTO.getImageFile();
-        if (imageFile != null && !imageFile.isEmpty()) {
-            try {
-                String imagePath = imageUploadService.uploadPlantImage(null, imageFile);
-                plant.setImageUrl(imagePath);
-            } catch (IOException e) {
-                throw new RuntimeException("Image upload failed: " + e.getMessage());
-            }
-        }
+	    // ✅ पहले plant को save करो ताकि ID मिल जाए
+	    Plant savedPlant = plantRepository.save(plant);
 
-        Plant saved = plantRepository.save(plant);
-        return plantMapper.toResponse(saved); // ✅ FIXED
-    }
+	    MultipartFile imageFile = plantDTO.getImageFile();
+	    if (imageFile != null && !imageFile.isEmpty()) {
+	        try {
+	            // ✅ अब image upload करो with plant ID
+	            String imagePath = imageUploadService.uploadPlantImage(savedPlant.getId(), imageFile);
 
+	            // ✅ image path ko set karo plant entity में
+	            savedPlant.setImageUrl(imagePath);
+
+	            // ✅ दुबारा save करो updated plant
+	            savedPlant = plantRepository.save(savedPlant);
+
+	        } catch (IOException e) {
+	            throw new RuntimeException("Image upload failed: " + e.getMessage());
+	        }
+	    }
+
+	    return plantMapper.toResponse(savedPlant);
+	}
+    
+    
     @Override
-    public PlantResponseDTO updatePlant(Long id, PlantRequestDTO plantDTO) {
+    public PlantResponseDTO updatePlant(@PathVariable Long id,@ModelAttribute PlantRequestDTO plantDTO) {
         Plant existingPlant = plantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Plant not found with id: " + id));
 
+        // ✅ पुरानी image path याद रखो
         String oldImagePath = existingPlant.getImageUrl();
 
+        // ✅ बाकी fields update करो
         existingPlant.setName(plantDTO.getName());
         existingPlant.setCategory(plantDTO.getCategory());
         existingPlant.setPrice(plantDTO.getPrice());
@@ -76,27 +90,39 @@ public class PlantServiceImpl implements PlantService {
         existingPlant.setBookByUserId(plantDTO.getBookByUserId());
 
         MultipartFile newImage = plantDTO.getImageFile();
+
         if (newImage != null && !newImage.isEmpty()) {
             try {
-                imageUploadService.deleteImage(oldImagePath); // ✅ FIXED method added
+                // ✅ पुरानी image delete करो
+                imageUploadService.deleteImage(oldImagePath);
+
+                // ✅ नई image upload करो
                 String newImagePath = imageUploadService.uploadPlantImage(id, newImage);
+
+                // ✅ नई image path set करो
                 existingPlant.setImageUrl(newImagePath);
+
             } catch (IOException e) {
                 throw new RuntimeException("Image update failed: " + e.getMessage());
             }
         }
 
         Plant updatedPlant = plantRepository.save(existingPlant);
-        return plantMapper.toResponse(updatedPlant); // ✅ FIXED
+        return plantMapper.toResponse(updatedPlant);
     }
+
 
     @Override
     public void deletePlant(Long id) {
         Plant plant = plantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Plant not found with id: " + id));
+
+        // ✅ अगर image है, तो उसे भी delete करो
         if (plant.getImageUrl() != null) {
-            imageUploadService.deleteImage(plant.getImageUrl()); // ✅ FIXED
+            imageUploadService.deleteImage(plant.getImageUrl());
         }
+
+        // ✅ फिर plant को delete करो
         plantRepository.deleteById(id);
     }
 
@@ -117,4 +143,11 @@ public class PlantServiceImpl implements PlantService {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	
+	
+	
+	
+
 }

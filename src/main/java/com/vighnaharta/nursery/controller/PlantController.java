@@ -35,17 +35,11 @@ public class PlantController {
         return ResponseEntity.ok(plantService.getPlantById(id));
     }
 
-    // 🔒 Only ADMIN can access
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/add")
-    public ResponseEntity<PlantResponseDTO> addPlant(@RequestBody PlantRequestDTO plantDTO) {
-        return ResponseEntity.ok(plantService.savePlant(plantDTO));
-    }
-
+   
     // 🔒 Only ADMIN can access
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
-    public ResponseEntity<PlantResponseDTO> updatePlant(@PathVariable Long id, @RequestBody PlantRequestDTO plantDTO) {
+    public ResponseEntity<PlantResponseDTO> updatePlant(@PathVariable Long id, @ModelAttribute PlantRequestDTO plantDTO) {
         return ResponseEntity.ok(plantService.updatePlant(id, plantDTO));
     }
 
@@ -73,4 +67,14 @@ public class PlantController {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
+    
+ // ✅ @RequestBody hatao, @ModelAttribute use karo
+    @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<PlantResponseDTO> savePlant(@ModelAttribute PlantRequestDTO dto) {
+        return ResponseEntity.ok(plantService.savePlant(dto));
+    }
+
+    
+    
 }
