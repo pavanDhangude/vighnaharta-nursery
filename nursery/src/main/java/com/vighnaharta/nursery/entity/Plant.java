@@ -1,14 +1,14 @@
 package com.vighnaharta.nursery.entity;
 
 import jakarta.persistence.*;
-
 import jakarta.validation.constraints.*;
 import lombok.*;
 import java.time.LocalDateTime;
-@Data
+
 @Entity
 @Table(name = "plants")
-
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Plant {

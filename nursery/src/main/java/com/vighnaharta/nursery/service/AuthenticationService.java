@@ -7,10 +7,6 @@ import com.vighnaharta.nursery.jwt.JwtService;
 import com.vighnaharta.nursery.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,11 +44,7 @@ public class AuthenticationService {
         userRepository.save(user);
 
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getUsername());
-
-        Map<String, Object> extraClaims = new HashMap<>();
-        extraClaims.put("role", user.getRole().name()); // role claim add kiya
-
-        String jwt = jwtService.generateToken(extraClaims, userDetails);
+        String jwt = jwtService.generateToken(userDetails);
 
         return new AuthenticationResponse(jwt);
     }
@@ -65,15 +57,8 @@ public class AuthenticationService {
                 )
         );
 
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(user.getUsername());
-
-        Map<String, Object> extraClaims = new HashMap<>();
-        extraClaims.put("role", user.getRole().name()); // role claim add kiya
-
-        String jwt = jwtService.generateToken(extraClaims, userDetails);
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(request.getUsername());
+        String jwt = jwtService.generateToken(userDetails);
 
         return new AuthenticationResponse(jwt);
     }

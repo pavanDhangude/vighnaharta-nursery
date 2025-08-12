@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,14 +21,8 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    // Generate token with roles
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("roles", userDetails.getAuthorities()
-                                       .stream()
-                                       .map(a -> a.getAuthority())
-                                       .collect(Collectors.toList()));
-        return generateToken(claims, userDetails);
+        return generateToken(new HashMap<>(), userDetails);
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
@@ -64,7 +57,7 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignKey())
@@ -74,6 +67,7 @@ public class JwtService {
     }
 
     private Key getSignKey() {
+        // 🔥 decode hata diya
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 }
