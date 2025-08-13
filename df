@@ -1,0 +1,63 @@
+[33mcommit 2521b3cd4df7db8a312ff80bdca8e0f188226e03[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Pavan Dhangude <pavan28dhangude@gmail.com>
+Date:   Wed Aug 13 00:24:11 2025 +0530
+
+    Added complete booking system with validation, email notifications, and user booking history
+
+[33mcommit 52fe8a4d47940bff6dbda06cdd8155208f9f1807[m
+Author: Pavan Dhangude <pavan28dhangude@gmail.com>
+Date:   Fri Aug 8 00:14:23 2025 +0530
+
+    remove uploads folder from tracking
+
+[33mcommit e358c9aa8ec06c588820c7c7a602d16af81128c1[m
+Author: Pavan Dhangude <pavan28dhangude@gmail.com>
+Date:   Thu Aug 7 23:56:08 2025 +0530
+
+    Remove uploads folder from git tracking
+
+[33mcommit 4508853042b7862cc70ca956715b2cdc6bf59a7c[m
+Author: Pavan Dhangude <pavan28dhangude@gmail.com>
+Date:   Thu Aug 7 23:37:56 2025 +0530
+
+    Added .getignore file to ignore uploads folder
+
+[33mcommit e13fdf25c0858b5a81167913281e1fc671806296[m
+Author: Pavan Dhangude <pavan28dhangude@gmail.com>
+Date:   Thu Aug 7 21:26:06 2025 +0530
+
+    Added image upload support wth plant create/update
+
+[33mcommit 3a424d803c02ef457c2d3fe908cbc2aa507214c2[m
+Author: pavanDhangude <pavan28dhangude@gmail.com>
+Date:   Wed Aug 6 00:13:35 2025 +0530
+
+    Update README.md
+
+[33mcommit 8d0e8a91b0733662bb5ea5325fa1465989794b75[m
+Author: pavanDhangude <pavan28dhangude@gmail.com>
+Date:   Wed Aug 6 00:03:19 2025 +0530
+
+    Add MIT License
+    
+    Added MIT License to make this nursery backend project open-source.
+    This will allow others to use, modify, and distribute the code with proper attribution.
+
+[33mcommit 5b9576f4ba18c79230e0f8c96f94e0922b15e1f8[m
+Merge: 83dfea4 2f668ed
+Author: Pavan Dhangude <pavan28dhangude@gmail.com>
+Date:   Tue Aug 5 23:02:38 2025 +0530
+
+    Merge branch 'main' of https://github.com/pavanDhangude/vighnaharta-nursery
+
+[33mcommit 83dfea44bf7b8913f2683c3bc7b20cb32887c27e[m
+Author: Pavan Dhangude <pavan28dhangude@gmail.com>
+Date:   Tue Aug 5 22:04:17 2025 +0530
+
+    Initial commit - Nursery Project uploaded
+
+[33mcommit 2f668ed07ad5c35a8609d8f459fe07f41db025f2[m
+Author: pavanDhangude <pavan28dhangude@gmail.com>
+Date:   Tue Aug 5 21:18:43 2025 +0530
+
+    Initial commit

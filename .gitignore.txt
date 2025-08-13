@@ -1,8 +1,11 @@
 # Ignore target (build) directory
 /target/
 
-# Ignore uploaded images
-/uploads/
+# Ignore uploaded images folder (correct relative path)
+src/main/uploads/
+
+# Ignore application properties (private config)
+src/main/resources/application.properties
 
 # Ignore class and project files
 *.class
