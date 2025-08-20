@@ -3,16 +3,61 @@
 This is a backend project built using **Spring Boot + MySQL**, representing a **Plant Nursery Management System**.  
 It is designed with **production-level features** like authentication, authorization, secure payments, and plant management.
 
-## 🚀 Features Completed
+## ✅ Completed Features
 
-- ✅ **Role-based Authentication (Admin/User)** using JWT  
-- ✅ **Plant Management (CRUD Operations)**  
-- ✅ **DTO Pattern** for clean request/response handling  
-- ✅ **Image Upload Functionality** (MultipartFile + Local Storage)  
-- ✅ **Booking & Order Management System**  
-- ✅ **Payment Integration** (Razorpay / PayPal / UPI support)  
-- ✅ **Search & Filter Feature** (plants by name, category, price range, etc.)  
-- ✅ **Email / Notification Integration** (confirmation mails, updates)  
+### 1. Authentication & Security
+- **Role-based Authentication** (Admin / User)
+- **JWT Token-based Security**
+- Passwords encrypted using **BCrypt**
+
+### 2. Plant Management
+- CRUD operations for plants (Create, Read, Update, Delete)
+- Image upload functionality for plant images
+- Uses **DTO pattern** for request/response mapping
+- Supports advanced fields: quantity, discountPercent, rating, reviews, originLocation, plantingSeason
+
+### 3. Booking & Order Management
+- Users can create bookings for plants
+- Admin can view all bookings
+- Booking status updates: **PENDING → CONFIRMED → CANCELLED → REJECTED**
+- Email notifications for booking confirmation & status changes
+
+### 4. Payment Integration
+- **Razorpay integration** for online payments
+- COD (Cash on Delivery) support
+- Payment verification and linking with booking
+- Post-payment email & invoice generation
+
+### 5. Cart System
+- Add, update, remove plants in cart
+- Calculate total price automatically
+- Cart linked to user account
+
+### 6. Wishlist
+- Users can add/remove plants from wishlist
+- Quick access for favorite plants
+
+### 7. Search & Filter
+- Search plants by name
+- Filter by category and price range
+- Combined search & filter for better results
+
+### 8. Discount Coupons
+- Apply discount codes to cart
+- Validate usage, max usage, and active period
+
+### 9. Rating & Review System
+- Users can add ratings and reviews for plants
+- Ratings stored and displayed on plant details
+
+### 10. Notifications & Emails
+- Booking confirmation emails
+- Payment success emails
+- Booking status update emails
+
+### 11. PDF Invoice Generation
+- Automatically generates invoice after successful payment
+
 
 ---
 
@@ -42,15 +87,14 @@ Please do not copy or misuse it.
 
 ---
 
-## 🔮 Future Scope (Upcoming Features)
+## 🔮 Future Scope / Upcoming Features
 
-- 🔹 **Discount & Offers Management** (apply seasonal offers, coupon codes)  
-- 🔹 **Wishlist / Favorites Feature** (users can save plants for later purchase)  
-- 🔹 **Review & Rating System** (users can add feedback for plants)  
-- 🔹 **Admin Dashboard** (sales report, user activity tracking, analytics)  
-- 🔹 **Inventory Management** (stock tracking, low stock alerts)  
-- 🔹 **Deployment on AWS Cloud** (EC2, RDS, S3 integration)  
-- 🔹 **Frontend Development** (React/Angular + Tailwind)  
+- Loyalty points / reward system for users  
+- Advanced discount campaigns (seasonal offers, flash sales)  
+- Multi-payment gateway integration (PayPal, UPI, etc.)  
+- Analytics & reporting dashboard for admins  
+- Cart & wishlist optimization (real-time stock updates)  
+- Review moderation & reporting  
 ---
 
 ## 📂 Project Setup
