@@ -119,6 +119,28 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
+        
+        <!-- Razorpay SDK -->
+<dependency>
+  <groupId>com.razorpay</groupId>
+  <artifactId>razorpay-java</artifactId>
+  <version>1.4.3</version>
+</dependency>
+
+<!-- iText for PDF -->
+<dependency>
+  <groupId>com.itextpdf</groupId>
+  <artifactId>itextpdf</artifactId>
+  <version>5.5.13.3</version>
+</dependency>
+
+<!-- Commons Codec (HMAC hex) -->
+<dependency>
+  <groupId>commons-codec</groupId>
+  <artifactId>commons-codec</artifactId>
+  <version>1.15</version>
+</dependency>
+
     </dependencies>
 
     <build>

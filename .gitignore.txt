@@ -2,7 +2,7 @@
 /target/
 
 # Ignore uploaded images folder (correct relative path)
-src/main/uploads/
+/uploads/
 
 # Ignore application properties (private config)
 src/main/resources/application.properties

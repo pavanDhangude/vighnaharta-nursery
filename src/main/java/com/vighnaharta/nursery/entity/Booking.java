@@ -9,6 +9,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.vighnaharta.nursery.dto.BookingResponseDTO;
+
 @Data
 
 @Entity
@@ -40,10 +43,18 @@ public class Booking {
     private LocalDateTime bookingDate;
 
     private String status;
+    
+ // NEW: razorpay order id yahan temporarily store karenge verification ke liye
+    private String paymentOrderId;
 
-    public Booking() {
-        // Default constructor
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;  // ✅ add this
+
+    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
+    @JsonManagedReference   // 👈 yaha lagana hai
+    private Payment payment;
+
 
     @PrePersist
     public void prePersist() {
@@ -54,6 +65,14 @@ public class Booking {
             this.status = "PENDING";
         }
     }
+
+	public double getTotalPrice() {
+		// TODO Auto-generated method stub
+		return plant != null ? quantity * plant.getPrice() : 0;
+		
+	}
+
+	
 
     // getters and setters here
     // Use Lombok if possible (@Getter @Setter)

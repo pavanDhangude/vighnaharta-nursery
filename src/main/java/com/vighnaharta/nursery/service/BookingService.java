@@ -1,7 +1,9 @@
 package com.vighnaharta.nursery.service;
 
+import com.vighnaharta.nursery.dto.BookingResponseDTO;
 import com.vighnaharta.nursery.entity.Booking;
 import com.vighnaharta.nursery.entity.Plant;
+import com.vighnaharta.nursery.mapper.BookingMapper;
 import com.vighnaharta.nursery.repository.BookingRepository;
 import com.vighnaharta.nursery.repository.PlantRepository;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
@@ -111,5 +115,39 @@ public class BookingService {
         return bookingRepository.findByCustomerEmail(customerEmail);
     }
     
+    
+    public List<BookingResponseDTO> getAllBookings1() {
+        return bookingRepository.findAll()
+                .stream()
+                .map(BookingMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public BookingResponseDTO getBookingById(Long id) {
+        Booking booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+        return BookingMapper.toDTO(booking);
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    public Booking getBookingEntityById(Long id) {
+        return bookingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Booking not found: " + id));
+    }
+
+    public Optional<Booking> findByPaymentOrderId(String orderId) {
+        return bookingRepository.findByPaymentOrderId(orderId);
+    }
+
+    public Booking saveBooking(Booking booking) {
+        return bookingRepository.save(booking);
+    }
+
     
 }

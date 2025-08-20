@@ -71,7 +71,13 @@ public class SecurityConfig {
                 // ✅ Update booking - Admin only  
                 .requestMatchers(HttpMethod.PUT, "/api/bookings/**").hasRole("ADMIN")  
              // ✅ Delete booking - Admin only
-                .requestMatchers(HttpMethod.DELETE, "/api/bookings/**").hasRole("ADMIN")               // Only Admin can delete booking
+                .requestMatchers(HttpMethod.DELETE, "/api/bookings/**").hasRole("ADMIN")               
+                
+                
+                //online payment ke liye user admin access
+                .requestMatchers("/api/payments/razorpay/create-order/**").hasAnyRole("USER","ADMIN")
+                .requestMatchers("/api/payments/razorpay/verify").hasAnyRole("USER","ADMIN")
+
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
